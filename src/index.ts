@@ -28,7 +28,6 @@ export default {
 		const tweetData = result.data
 
 		const image = tweetData.legacy.extended_entities?.media?.[0] ?? result.data.legacy.entities.media?.[0];
-		const handle = tweetData.core.user_results.result.core.screen_name
 
 		const html = `<!DOCTYPE html>
 <html lang="en">
@@ -38,13 +37,13 @@ export default {
 	<title>Messenger Link Preview</title>
 
 	<!-- Open Graph Meta Tags for Messenger -->
-	<meta property="og:title" content="@${handle}">
+	<meta property="og:title" content="@${tweetData.core.user_results.result.core.screen_name}">
 	<meta property="og:description" content="${tweetData.legacy.full_text}">
 	<meta property="og:image" content="${image?.media_url_https}">
 	<meta property="og:image:width" content="${image?.sizes.large?.w}">
 	<meta property="og:image:height" content="${image?.sizes.large?.h}">
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://x.com/${handle}/status/${statusId}">
+	<meta property="og:url" content="https://example.com">
 
 	<style>
 		body {
