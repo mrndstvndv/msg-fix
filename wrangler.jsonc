@@ -1,0 +1,8 @@
+{
+	"name": "msg-fix",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-01-08",
+	"observability": {
+		"enabled": true,
+	},
+}
