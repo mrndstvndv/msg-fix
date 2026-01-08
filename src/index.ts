@@ -19,16 +19,16 @@ export default {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Messenger Link Preview</title>
-	
+
 	<!-- Open Graph Meta Tags for Messenger -->
 	<meta property="og:title" content="Check out this amazing page">
 	<meta property="og:description" content="This is a sample page with a messenger-compatible link preview">
-	<meta property="og:image" content="https://images.unsplash.com/photo-1611339555312-e607c25352ba?w=1200&h=630&fit=crop">
+	<meta property="og:image" content="https://pbs.twimg.com/media/G-D4OGeWAAAHNt7?format=jpg&name=900x900">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://example.com">
-	
+
 	<style>
 		body {
 			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -58,7 +58,7 @@ export default {
 	<div class="container">
 		<h1>Messenger Link Preview Sample</h1>
 		<p>This page includes Open Graph meta tags that will display an image and title when shared in Messenger.</p>
-		
+
 		<div class="preview">
 			<strong>When shared in Messenger, it will show:</strong>
 			<ul>
