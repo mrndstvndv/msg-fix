@@ -16,21 +16,10 @@ export default {
 	async fetch(request, env, ctx): Promise<Response> {
 
 		const url = new URL(request.url);
-		
-		// Support both query param (?id=xxx) and path (/xxx) formats
-		const queryId = url.searchParams.get('id');
-		const pathId = url.pathname.slice(1); // Remove leading slash
-		
-		// Query param format: always redirect to original tweet
-		if (queryId) {
-			return Response.redirect(`https://x.com/i/status/${queryId}`, 302);
-		}
-		
-		// Path format: return embed HTML for bots, redirect for browsers
-		const statusId = pathId;
-		
+		const statusId = url.searchParams.get('id')
+
 		if (!statusId) {
-			return new Response('Missing status ID. Use /{statusId} or ?id={statusId}', { status: 400 });
+			return new Response('Missing required "id" query parameter', { status: 400 });
 		}
 
 		// Check if request is from Messenger embed bot
