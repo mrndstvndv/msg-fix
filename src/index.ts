@@ -16,7 +16,11 @@ export default {
 	async fetch(request, env, ctx): Promise<Response> {
 
 		const url = new URL(request.url);
-		const statusId = url.pathname.slice(1)
+		const statusId = url.searchParams.get('id')
+
+		if (!statusId) {
+			return new Response('Missing required "id" query parameter', { status: 400 });
+		}
 
 		const twitter = new TwitterClient()
 		const result = await twitter.getTweetInfo(statusId)
@@ -43,7 +47,7 @@ export default {
 	<meta property="og:image:width" content="${image?.sizes.large?.w}">
 	<meta property="og:image:height" content="${image?.sizes.large?.h}">
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://msg-fix.stvndvmrnd.workers.dev?foo=bar">
+	<meta property="og:url" content="${url.origin}?id=${statusId}">
 
 	<style>
 		body {
