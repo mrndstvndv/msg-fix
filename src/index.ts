@@ -43,7 +43,7 @@ export default {
 	<meta property="og:image:width" content="${image?.sizes.large?.w}">
 	<meta property="og:image:height" content="${image?.sizes.large?.h}">
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://lijs.nk">
+	<meta property="og:url" content="https://msg-fix.stvndvmrnd.workers.dev?foo=bar">
 
 	<style>
 		body {
