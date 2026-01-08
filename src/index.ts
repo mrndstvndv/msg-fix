@@ -46,10 +46,6 @@ export default {
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Messenger Link Preview</title>
-
-	<!-- Open Graph Meta Tags for Messenger -->
 	<meta property="og:title" content="@${tweetData.core.user_results.result.core.screen_name}">
 	<meta property="og:description" content="${tweetData.legacy.full_text}">
 	<meta property="og:image" content="${image?.media_url_https}">
@@ -57,47 +53,7 @@ export default {
 	<meta property="og:image:height" content="${image?.sizes.large?.h}">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="${url.origin}?id=${statusId}">
-
-	<style>
-		body {
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-			max-width: 800px;
-			margin: 0 auto;
-			padding: 20px;
-			background: #f5f5f5;
-		}
-		.container {
-			background: white;
-			border-radius: 8px;
-			padding: 40px;
-			box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-		}
-		h1 { color: #333; }
-		p { color: #666; line-height: 1.6; }
-		.preview {
-			margin: 20px 0;
-			padding: 15px;
-			background: #f9f9f9;
-			border-left: 4px solid #0084ff;
-			border-radius: 4px;
-		}
-	</style>
 </head>
-<body>
-	<div class="container">
-		<h1>${tweetData.core.user_results.result.core.screen_name}</h1>
-		<p>This page includes Open Graph meta tags that will display an image and title when shared in Messenger.</p>
-
-		<div class="preview">
-			<strong>When shared in Messenger, it will show:</strong>
-			<ul>
-				<li>Title: "Check out this amazing page"</li>
-				<li>Description: "This is a sample page with a messenger-compatible link preview"</li>
-				<li>Image: A beautiful landscape photo (1200x630px)</li>
-			</ul>
-		</div>
-	</div>
-</body>
 </html>`;
 
 		return new Response(html, {
