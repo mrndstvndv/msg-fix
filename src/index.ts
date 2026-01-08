@@ -43,6 +43,7 @@ export default {
 	<meta property="og:image:width" content="${image?.sizes.large?.w}">
 	<meta property="og:image:height" content="${image?.sizes.large?.h}">
 	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://example.com">
 
 	<style>
 		body {
