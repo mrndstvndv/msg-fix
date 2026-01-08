@@ -35,7 +35,7 @@ export default {
 	<title>Messenger Link Preview</title>
 
 	<!-- Open Graph Meta Tags for Messenger -->
-	<meta property="og:title" content="Check out this amazing page">
+	<meta property="og:title" content="${tweetData.core.user_results.result.core.screen_name}">
 	<meta property="og:description" content="${tweetData.legacy.full_text}">
 	<meta property="og:image" content="https://pbs.twimg.com/media/G-D4OGeWAAAHNt7?format=jpg&name=900x900">
 	<meta property="og:image:width" content="1200">
@@ -70,7 +70,7 @@ export default {
 </head>
 <body>
 	<div class="container">
-		<h1>Messenger Link Preview Sample</h1>
+		<h1>${tweetData.core.user_results.result.core.screen_name}</h1>
 		<p>This page includes Open Graph meta tags that will display an image and title when shared in Messenger.</p>
 
 		<div class="preview">
