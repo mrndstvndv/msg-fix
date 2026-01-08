@@ -22,6 +22,15 @@ export default {
 			return new Response('Missing required "id" query parameter', { status: 400 });
 		}
 
+		// Check if request is from Messenger embed bot
+		const userAgent = request.headers.get('User-Agent') || '';
+		const isEmbedBot = /WhatsApp/i.test(userAgent);
+
+		// If regular browser, redirect to original tweet
+		if (!isEmbedBot) {
+			return Response.redirect(`https://x.com/i/status/${statusId}`, 302);
+		}
+
 		const twitter = new TwitterClient()
 		const result = await twitter.getTweetInfo(statusId)
 
