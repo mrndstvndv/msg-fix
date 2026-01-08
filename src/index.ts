@@ -10,9 +10,23 @@
  *
  * Learn more at https://developers.cloudflare.com/workers/
  */
+import { TwitterClient } from './twitter'
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
+
+		const url = new URL(request.url);
+		const statusId = url.pathname.slice(1)
+
+		const twitter = new TwitterClient()
+		const result = await twitter.getTweetInfo(statusId)
+
+		if (!result.success) {
+			return new Response(`Error: ${result.error.message}`, { status: 404 });
+		}
+
+		const tweetData = result.data
+
 		const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +36,7 @@ export default {
 
 	<!-- Open Graph Meta Tags for Messenger -->
 	<meta property="og:title" content="Check out this amazing page">
-	<meta property="og:description" content="This is a sample page with a messenger-compatible link preview">
+	<meta property="og:description" content="${tweetData.legacy.full_text}">
 	<meta property="og:image" content="https://pbs.twimg.com/media/G-D4OGeWAAAHNt7?format=jpg&name=900x900">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
