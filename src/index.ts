@@ -19,7 +19,7 @@ export default {
 
 		// Support both query param (?id=xxx) and path (/xxx) formats
 		const queryId = url.searchParams.get('id');
-		const pathId = url.pathname.slice(1); // Remove leading slash
+		const pathId = url.pathname.split('/').filter(Boolean).pop();
 
 		// Query param format: always redirect to original tweet
 		if (queryId) {
