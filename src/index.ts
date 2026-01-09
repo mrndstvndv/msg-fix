@@ -11,7 +11,7 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 import { TwitterClient } from './twitter'
-import { sanitizeHtml } from './utils'
+import { getDisplayText, sanitizeHtml } from './utils'
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
@@ -50,7 +50,7 @@ export default {
 <head>
 	<meta charset="UTF-8">
 	<meta property="og:title" content="@${tweetData.core.user_results.result.core.screen_name}">
-	<meta property="og:description" content="${sanitizeHtml(tweetData.legacy.full_text)}">
+	<meta property="og:description" content="${sanitizeHtml(getDisplayText(tweetData.legacy))}">
 	<meta property="og:image" content="${image?.media_url_https}">
 	<meta property="og:image:width" content="${image?.sizes.large?.w}">
 	<meta property="og:image:height" content="${image?.sizes.large?.h}">
