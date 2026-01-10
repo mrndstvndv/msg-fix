@@ -6,9 +6,11 @@ export interface TwitterClientConfig {
   userAgent?: string;
 }
 
+export type TwitterErrorCode = 'NOT_FOUND' | 'RESTRICTED' | 'UNAVAILABLE' | 'UNKNOWN' | 'GUEST_ACTIVATION_FAILED' | 'GUEST_ACTIVATION_ERROR' | 'TWEET_FETCH_FAILED' | 'TWEET_FETCH_ERROR';
+
 export interface TwitterError {
   message: string;
-  code?: string;
+  code?: TwitterErrorCode;
   statusCode?: number;
 }
 
@@ -250,10 +252,42 @@ export interface TweetResult {
   quoted_tweet?: TweetResult;
 }
 
+// Tombstone types for restricted/unavailable tweets
+export interface BlurredMediaTombstone {
+  __typename: 'BlurredMediaTombstone';
+  blurred_image_url: string;
+  text: { text: string; rtl?: boolean };
+  user_results?: { result: UserResult };
+}
+
+export interface TextTombstone {
+  __typename: 'TextTombstone';
+  text: { text: string; rtl?: boolean };
+}
+
+export type TweetTombstone = BlurredMediaTombstone | TextTombstone;
+
+export interface TweetTombstoneResult {
+  __typename: 'TweetTombstone';
+  tombstone: TweetTombstone;
+}
+
+// Tweet with visibility restrictions (wrapped tweet)
+export interface TweetWithVisibilityResult {
+  __typename: 'TweetWithVisibilityResults';
+  tweet: TweetResult;
+}
+
+// Union type for all possible tweet result responses
+export type TweetResultResponse = 
+  | TweetResult 
+  | TweetTombstoneResult 
+  | TweetWithVisibilityResult;
+
 export interface TweetResultByRestIdResponse {
   data?: {
     tweetResult?: {
-      result?: TweetResult;
+      result?: TweetResultResponse;
     };
   };
 }

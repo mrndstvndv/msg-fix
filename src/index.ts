@@ -38,7 +38,8 @@ export default {
 		const result = await twitter.getTweetInfo(statusId)
 
 		if (!result.success) {
-			return new Response(`Error: ${result.error.message}`, { status: 404 });
+			const statusCode = result.error.statusCode ?? (result.error.code === 'RESTRICTED' ? 451 : 404);
+			return new Response(`Error: ${result.error.message}`, { status: statusCode });
 		}
 
 		const tweetData = result.data

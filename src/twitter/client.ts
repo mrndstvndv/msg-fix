@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 
-import type { Result, TwitterClientConfig, TwitterError, GuestTokenResponse, TweetResult, TweetResultByRestIdResponse } from './models';
+import type { Result, TwitterClientConfig, TwitterError, TwitterErrorCode, GuestTokenResponse, TweetResult, TweetResultByRestIdResponse, TweetResultResponse } from './models';
 import { AUTHORIZATION_TOKEN, DEFAULT_USER_AGENT, TWEET_BY_REST_ID_URL, TWEET_FEATURES } from './constants';
 
 export class TwitterClient {
@@ -11,7 +11,7 @@ export class TwitterClient {
     this.userAgent = config?.userAgent || DEFAULT_USER_AGENT;
   }
 
-  private createError(message: string, statusCode?: number, code?: string): TwitterError {
+  private createError(message: string, statusCode?: number, code?: TwitterErrorCode): TwitterError {
     return { message, statusCode, code };
   }
 
@@ -20,9 +20,25 @@ export class TwitterClient {
     if (!result) {
       return {
         success: false,
-        error: this.createError('Tweet not found', 404, 'TWEET_NOT_FOUND'),
+        error: this.createError('Tweet not found', 404, 'NOT_FOUND'),
       };
     }
+
+    // Handle TweetTombstone (age-restricted/unavailable content)
+    if (result.__typename === 'TweetTombstone') {
+      const tombstoneText = result.tombstone?.text?.text ?? 'This tweet is unavailable';
+      return {
+        success: false,
+        error: this.createError(tombstoneText, 451, 'RESTRICTED'),
+      };
+    }
+
+    // Handle TweetWithVisibilityResults (unwrap nested tweet)
+    if (result.__typename === 'TweetWithVisibilityResults') {
+      return { success: true, data: result.tweet };
+    }
+
+    // Default: treat as normal Tweet (handles both explicit 'Tweet' typename and missing typename)
     return { success: true, data: result };
   }
 
