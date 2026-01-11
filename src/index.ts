@@ -50,8 +50,8 @@ export default {
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta property="og:title" content="@${tweetData.core.user_results.result.core.screen_name}">
-	<meta property="og:description" content="${sanitizeHtml(getDisplayText(tweetData.legacy))}">
+	<meta property="og:title" content="${sanitizeHtml(getDisplayText(tweetData.legacy))}">
+	<meta property="og:description" content="@${tweetData.core.user_results.result.core.screen_name}">
 	<meta property="og:image" content="${image?.media_url_https}">
 	<meta property="og:image:width" content="${image?.sizes.large?.w}">
 	<meta property="og:image:height" content="${image?.sizes.large?.h}">
